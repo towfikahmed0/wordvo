@@ -27,7 +27,7 @@ function sleep(ms) {
 }
 //getting dictionary files
 const startTime = performance.now();
-fetch('https://raw.githubusercontent.com/Nafisa41/Dictionary--English-to-Bangla-/master/Database/E2Bdatabase.json')
+fetch('https://raw.githubusercontent.com/towfikahmed0/wordvo/refs/heads/main/EBDictionary.json')
     .then(response => {
         if (!response.ok) throw new Error('Failed to load JSON');
         isDataLoaded = false;
