@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordVo</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="main_display">
+
+    <!-- Starting page start here -->
+    <div id="frontPage">
+      <div>
+        <h1 style="font-size: 48px; font-weight: bold; color: #4a90e2;">WordVo</h1>
+        <p>Welcome to WordVo – Explore the Power of Words</p>
+        <button class="start-button" onclick="startGame()">Get Started</button>
+      </div>
+      <br>
+      <div class="footer-text">
+              Created by - @TOWFIK AHMED
+      </div>
+    </div>
+
+    <!-- Loading page start here -->
+    <div id="loading" class="loadingclass">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Game page start here -->
+    <div class="main" id="game">
+      <h1 style="color: #2968e7;"><b>WordVo</b></h1>
+      <p style="text-align: center;">Guess the meaning...</p>
+      <div type="text" class="form-control" placeholder="Question will appear here..." id="outputField" disabled
+        style="padding: 10px 5px 10px 20px; font-size: 20px;"> </div>
+      <div class="d-grid gap-2 m-4" style="width: 100%;">
+        <button class="btn btn-secondary option" type="button" id="0" onclick="checkAnswer(this.id)">Option 1</button>
+        <button class="btn btn-secondary option" type="button" id="1" onclick="checkAnswer(this.id)">Option 2</button>
+        <button class="btn btn-secondary option" type="button" id="2" onclick="checkAnswer(this.id)">Option 3</button>
+        <button class="btn btn-secondary option" type="button" id="3" onclick="checkAnswer(this.id)">Option 4</button>
+      </div>
+      <div class="d-grid gap-2 col-6 mx-auto m-4">
+        <button class="btn btn-success" type="button" id="next" onclick="startGame()" disabled>Next >></button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- <script src="E2Bdatabase.js"></script> -->
+  <script src="scripts.js"></script>
+</body>
+
+</html>

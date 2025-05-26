@@ -1,0 +1,130 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-image: url('background_Image.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.main_display {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 47vw;
+}
+
+.main {
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5%;
+    background-color: #ffff;
+    width: 50%;
+    border-radius: 3%;
+}
+
+.loadingclass {
+    display: none;
+    background-color: #ffffff;
+    padding: 5%;
+    width: 50%;
+    border-radius: 3%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 60%;
+}
+
+.footer-text {
+    position: absolute;
+    bottom: 20px;
+    color: grey;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+.input-group {
+    margin: 5px;
+}
+
+#frontPage {
+    display: flex;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+    border-radius: 2%;
+    padding: 10%;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* align-content: center; */
+    flex-wrap: nowrap;
+}
+
+.start-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.start-button:hover {
+    background-color: #0b78f5;
+    transition: 0.5s;
+}
+.loader {
+    border: 8px solid #ddd;
+    border-radius: 50%;
+    border-top: 8px solid black;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .main {
+        width: 85%;
+    }
+
+    #frontPage {
+        width: 85%;
+    }
+
+    .main_display {
+        height: 155vw;
+    }
+}
