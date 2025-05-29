@@ -1,121 +1,104 @@
-// all variables here
+// Variables
 let correctWord;
 let correctWordId;
-let IsAnswered = false;
+let isAnswered = false;
 let ansId;
-let isDataLoaded;
-let wordData = []
-const buttons = [
-    document.getElementById("0"),
-    document.getElementById("1"),
-    document.getElementById("2"),
-    document.getElementById("3")
-];
+let isDataLoaded = false;
+let wordData = [];
 
-// getting elements by ID
+const buttons = Array.from({ length: 4 }, (_, i) => document.getElementById(String(i)));
+
+// DOM Elements
 const loadingDiv = document.getElementById("loading");
 const gameDiv = document.getElementById("game");
 const frontPage = document.getElementById("frontPage");
+const nextButton = document.getElementById("next");
+const outputField = document.getElementById("outputField");
 
-
-//showing front page as start
+// Initial UI setup
 loadingDiv.style.display = "none";
 gameDiv.style.display = "none";
 frontPage.style.display = "block";
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-//getting dictionary files
-const startTime = performance.now();
-fetch('https://raw.githubusercontent.com/towfikahmed0/wordvo/refs/heads/main/EBDictionary.json')
-    .then(response => {
-        if (!response.ok) throw new Error('Failed to load JSON');
-        isDataLoaded = false;
-        return response.json();
-    })
-    .then(data => {
-        wordData = data;
 
+// Load dictionary
+(async () => {
+    try {
+        const startTime = performance.now();
+        const response = await fetch('https://raw.githubusercontent.com/towfikahmed0/wordvo/refs/heads/main/EBDictionary.json');
+        if (!response.ok) throw new Error('Failed to load JSON');
+        wordData = await response.json();
         isDataLoaded = true;
         const endTime = performance.now();
         console.log(`Data loaded in ${Math.round(endTime - startTime)} ms`);
-    })
-    .catch(error => console.error('Error loading data:', error));
-//main game func start here
-function startGame() {
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
+})();
 
-    // Show game, hide loading and front page
-    // Check every 500ms
+// Wait until data is loaded
+async function waitUntilLoaded() {
+    while (!isDataLoaded) {
+        await sleep(100);
+    }
+}
+
+// Start the game
+async function startGame() {
     loadingDiv.style.display = "flex";
     frontPage.style.display = 'none';
     gameDiv.style.display = "none";
-    const intervalId = setInterval(() => {
-        if (isDataLoaded) {
-            frontPage.style.display = 'none'
-            loadingDiv.style.display = "none";
-            gameDiv.style.display = "flex";
-            const startTime = performance.now();
 
-            //setting an emty option array
-            let options = [];
+    await waitUntilLoaded();
 
-            //
-            IsAnswered = false;
+    loadingDiv.style.display = "none";
+    gameDiv.style.display = "flex";
 
-            //making next btn disable
-            document.getElementById("next").disabled = true;
+    const startTime = performance.now();
 
-            //change the color of the user's ans
-            if (ansId !== undefined) {
-                buttons[ansId].className = 'btn btn-secondary option';
-                buttons[correctWordId].className = 'btn btn-secondary option';
-            }
+    isAnswered = false;
+    nextButton.disabled = true;
 
-            //get random wrd and make ques
-            let randomIndex = Math.floor(Math.random() * wordData.length);
-            document.getElementById("outputField").innerHTML = `What is the meaning of <b style="color: #2079da;">'${wordData[randomIndex].en}'</b>?`;
+    if (typeof ansId === "number") {
+        buttons[ansId].className = 'btn btn-secondary option';
+        buttons[correctWordId].className = 'btn btn-secondary option';
+    }
 
-            //stor correct wrd
-            correctWord = wordData[randomIndex].bn;
+    const randomIndex = Math.floor(Math.random() * wordData.length);
+    const question = wordData[randomIndex];
+    correctWord = question.bn;
 
-            //make options
-            while (options.length < 3) {
-                let idx = Math.floor(Math.random() * wordData.length);
-                let word = wordData[idx].bn;
-                if (word !== correctWord && !options.includes(word)) {
-                    options.push(word);
-                }
-            }
+    outputField.innerHTML = `What is the meaning of <b style="color: #2079da;">'${question.en}'</b>?`;
 
-            //insert ans into options
-            correctWordId = Math.floor(Math.random() * 4);
-            options.splice(correctWordId, 0, correctWord);
+    const options = new Set();
+    while (options.size < 3) {
+        const word = wordData[Math.floor(Math.random() * wordData.length)].bn;
+        if (word !== correctWord) options.add(word);
+    }
 
-            //change every 
-            for (let i = 0; i < 4; i++) {
-                buttons[i].textContent = options[i];
-                buttons[i].className = 'btn btn-secondary option';
-            }
+    const optionArray = Array.from(options);
+    correctWordId = Math.floor(Math.random() * 4);
+    optionArray.splice(correctWordId, 0, correctWord);
 
-            const endTime = performance.now();
-            console.log(`startGame() executed in ${Math.round(endTime - startTime)} ms`);
-            clearInterval(intervalId);
-        }
-    }, 500);
+    for (let i = 0; i < 4; i++) {
+        buttons[i].textContent = optionArray[i];
+        buttons[i].className = 'btn btn-secondary option';
+    }
 
-
+    const endTime = performance.now();
+    console.log(`startGame() executed in ${Math.round(endTime - startTime)} ms`);
 }
 
-//ans checking func start here
+// Check user's answer
 function checkAnswer(answer) {
+    if (isAnswered) return;
 
-    if (IsAnswered) return;
+    isAnswered = true;
+    const selectedOption = buttons[answer].textContent;
 
-    IsAnswered = true;
-    //getting user selected opt
-    let selectedOption = buttons[answer].textContent;
-
-    //matching crt wrd with slted opt
     if (selectedOption === correctWord) {
         buttons[answer].className = "btn btn-success option";
         buttons[answer].innerHTML += " &#10004;";
@@ -127,6 +110,5 @@ function checkAnswer(answer) {
     }
 
     ansId = answer;
-    //opening next btn
-    document.getElementById("next").disabled = false;
+    nextButton.disabled = false;
 }
