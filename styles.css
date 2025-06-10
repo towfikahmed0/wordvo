@@ -5,9 +5,11 @@ body {
     background-size: cover;
     background-position: center;
     height: 100vh;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .main_display {
+    font-family: "Noto Sans", sans-serif;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -28,6 +30,7 @@ body {
     background-color: #ffff;
     width: 50%;
     border-radius: 3%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .loadingclass {
@@ -42,12 +45,26 @@ body {
     height: 60%;
 }
 
+#score {
+    position: absolute;
+    top: 2%;
+    right: 6%;
+    background-color: white;
+    font-weight: bold;
+    color: #747dbe;
+    padding: 4px 12px 4px 12px;
+    ;
+    border-radius: 5%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 .footer-text {
     position: absolute;
     bottom: 20px;
-    color: grey;
+    color: #cdcdcd;
     font-size: 14px;
     text-align: center;
+    left: 45%;
 }
 
 
@@ -79,10 +96,12 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
+
 .start-button:hover {
     background-color: #0b78f5;
     transition: 0.5s;
 }
+
 .loader {
     border: 8px solid #ddd;
     border-radius: 50%;
@@ -92,6 +111,21 @@ body {
     -webkit-animation: spin 2s linear infinite;
     /* Safari */
     animation: spin 2s linear infinite;
+}
+
+.learnMoreDiv {
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5%;
+    background-color: #ffff;
+    width: 50%;
+    border-radius: 3%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 80%;
 }
 
 /* Safari */
@@ -126,5 +160,9 @@ body {
 
     .main_display {
         height: 155vw;
+    }
+
+    .footer-text {
+        left: 26%;
     }
 }
