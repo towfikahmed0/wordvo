@@ -98,6 +98,7 @@ async function startGame() {
         btn.textContent = optionArray[i];
         btn.className = 'btn btn-secondary option';
     });
+    playAudio()
 }
 
 function checkAnswer(answer) {
